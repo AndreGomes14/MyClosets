@@ -32,7 +32,7 @@ public class User {
     @NotBlank(message = "mobile phone is required")
     private String mobilePhone;
 
-    private String isDeleted;
+    private Boolean isDeleted;
     @OneToMany
-    private List<Closet> closets;
+    private Closet closet;
 }

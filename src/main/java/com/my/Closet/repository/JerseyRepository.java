@@ -1,4 +1,14 @@
 package com.my.Closet.repository;
 
-public interface JerseyRepository {
+import com.my.Closet.entity.Closet;
+import com.my.Closet.entity.Jersey;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.UUID;
+
+@Repository
+public interface JerseyRepository extends JpaRepository<Jersey, UUID> {
+    List<Jersey> findAllByDeletedIsFalse();
 }

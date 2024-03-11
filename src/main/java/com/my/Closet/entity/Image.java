@@ -25,4 +25,5 @@ public class Image {
     @Lob
     private byte[] data;
 
+    private Boolean isDeleted;
 }

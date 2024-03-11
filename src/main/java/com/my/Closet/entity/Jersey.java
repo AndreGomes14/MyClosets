@@ -36,7 +36,7 @@ public class Jersey {
     private String acquisitionDate;
     private String buyPrice;
     private String sellPrice;
-    private String isDeleted;
+    private Boolean isDeleted;
     private List<Image> photos;
 
     @OneToMany
