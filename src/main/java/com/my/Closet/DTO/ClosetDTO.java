@@ -28,7 +28,7 @@ public class ClosetDTO {
     @NotNull(message = "Closet must have an user")
     private UserDTO user;
 
-    private Boolean isDeleted;
+    private Boolean deleted;
 
     private List<JerseyDTO> jerseys;
 

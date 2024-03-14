@@ -6,18 +6,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.UUID;
-
 @Data
 @Builder
 @Slf4j
 @NoArgsConstructor
 @AllArgsConstructor
-public class ImageDTO {
-
-    private UUID id;
-    private String name;
-    private Boolean isDeleted;
-
-    private byte[] data;
+public class ClosetJerseyDTO {
+    ClosetDTO closetDTO;
+    JerseyDTO jerseyDTO;
 }

@@ -1,7 +1,6 @@
 package com.my.Closet.DTO;
 
 import com.my.Closet.entity.Closet;
-import com.my.Closet.entity.Image;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,14 +26,11 @@ public class JerseyDTO {
     private String brand;
     private String color;
     private String size;
-    private List<String> patches;
     private String condition;
     private String category;
     private String acquisitionDate;
     private String buyPrice;
-    private String sellPrice;
-    private String isDeleted;
-    private List<Image> photos;
+    private String deleted;
 
     private Closet closet;
 }

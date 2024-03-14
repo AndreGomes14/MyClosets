@@ -1,76 +1,94 @@
 package com.my.Closet.service;
 
-import com.my.Closet.entity.Image;
-import com.my.Closet.entity.User;
 import com.my.Closet.exception.JerseyNotFoundException;
+import com.my.Closet.exception.JerseyServiceException;
 import com.my.Closet.repository.JerseyRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.my.Closet.DTO.JerseyDTO;
 import com.my.Closet.entity.Jersey;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @Service
+@Slf4j
 public class JerseyService {
 
     private final JerseyRepository jerseyRepository;
-    private final ImageService imageService;
     @Autowired
-    public JerseyService(JerseyRepository jerseyRepository, ImageService imageService) {
+    public JerseyService(JerseyRepository jerseyRepository) {
         this.jerseyRepository = jerseyRepository;
-        this.imageService = imageService;
-
     }
 
     public Jersey createJersey(JerseyDTO jerseyDTO) {
-        Jersey jersey = Jersey.builder()
-                .clubName(jerseyDTO.getClubName())
-                .playerName(jerseyDTO.getPlayerName())
-                .number(jerseyDTO.getNumber())
-                .season(jerseyDTO.getSeason())
-                .competition(jerseyDTO.getCompetition())
-                .brand(jerseyDTO.getBrand())
-                .color(jerseyDTO.getColor())
-                .size(jerseyDTO.getSize())
-                .patches(jerseyDTO.getPatches())
-                .condition(jerseyDTO.getCondition())
-                .category(jerseyDTO.getCategory())
-                .acquisitionDate(jerseyDTO.getAcquisitionDate())
-                .buyPrice(jerseyDTO.getBuyPrice())
-                .sellPrice(jerseyDTO.getSellPrice())
-                .build();
-        return jerseyRepository.save(jersey);
-    }
-
-    public void addPhotosToJersey(UUID jerseyId, List<String> photoUrls) throws IOException {
-        Jersey jersey = jerseyRepository.findById(jerseyId)
-                .orElseThrow(() -> new JerseyNotFoundException("Jersey not found with ID: " + jerseyId));
-
-        List<Image> photos = new ArrayList<>();
-        for (String url : photoUrls) {
-            Image image = imageService.createImageFromUrl(url);
-            photos.add(image);
+        try {
+            log.info("Creating jersey with data: {}", jerseyDTO);
+            Jersey jersey = Jersey.builder()
+                    .clubName(jerseyDTO.getClubName())
+                    .playerName(jerseyDTO.getPlayerName())
+                    .number(jerseyDTO.getNumber())
+                    .season(jerseyDTO.getSeason())
+                    .competition(jerseyDTO.getCompetition())
+                    .brand(jerseyDTO.getBrand())
+                    .color(jerseyDTO.getColor())
+                    .size(jerseyDTO.getSize())
+                    .condition(jerseyDTO.getCondition())
+                    .category(jerseyDTO.getCategory())
+                    .acquisitionDate(jerseyDTO.getAcquisitionDate())
+                    .buyPrice(jerseyDTO.getBuyPrice())
+                    .deleted(false)
+                    .build();
+            Jersey createdJersey = jerseyRepository.save(jersey);
+            log.info("Jersey created successfully: {}", createdJersey);
+            return createdJersey;
+        } catch (Exception e) {
+            log.error("Error occurred while creating jersey", e);
+            throw new JerseyServiceException("Failed to create jersey", e);
         }
-
-        jersey.getPhotos().addAll(photos);
-
-        jerseyRepository.save(jersey);
     }
 
     public List<Jersey> getAllJerseys() {
-        return jerseyRepository.findAll();
+        try {
+            log.info("Fetching all jerseys.");
+            List<Jersey> jerseys = jerseyRepository.findAllByDeletedIsFalse();
+            log.info("Fetched {} jerseys successfully.", jerseys.size());
+            return jerseys;
+        } catch (Exception e) {
+            log.error("Error occurred while fetching jerseys.", e);
+            throw e;
+        }
     }
 
     public Jersey getJerseyById(UUID jerseyId) {
-        return jerseyRepository.findById(jerseyId)
-                .orElseThrow(() -> new JerseyNotFoundException("Jersey not found with ID: " + jerseyId));
+        try {
+            log.info("Fetching jersey with ID: {}", jerseyId);
+            Jersey jersey = jerseyRepository.findById(jerseyId)
+                    .orElseThrow(() -> new JerseyNotFoundException("Jersey not found with ID: " + jerseyId));
+            log.info("Jersey found: {}", jersey);
+            return jersey;
+        } catch (JerseyNotFoundException e) {
+            log.warn("Jersey not found with ID: {}", jerseyId);
+            throw e;
+        } catch (Exception e) {
+            log.error("Error occurred while fetching jersey with ID: {}", jerseyId, e);
+            throw e;
+        }
     }
     public void deleteJersey(UUID jerseyId) {
-        jerseyRepository.deleteById(jerseyId);
+        try {
+            log.info("Soft deleting jersey with ID: {}", jerseyId);
+            Jersey jersey = jerseyRepository.findById(jerseyId)
+                    .orElseThrow(() -> new JerseyNotFoundException("Jersey not found with ID: " + jerseyId));
+            jersey.setDeleted(true);
+            jerseyRepository.save(jersey);
+            log.info("Jersey soft deleted successfully");
+        } catch (Exception e) {
+            log.error("Error occurred while soft deleting jersey with ID: {}", jerseyId, e);
+            throw e;
+        }
     }
 }

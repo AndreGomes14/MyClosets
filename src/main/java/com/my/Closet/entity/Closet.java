@@ -30,9 +30,9 @@ public class Closet {
     @NotBlank(message = "ClosetType is required")
     private String closetType;
 
-    private Boolean isDeleted;
+    private Boolean deleted;
 
-    @ManyToOne
+    @OneToMany
     private List<Jersey> jerseys = new ArrayList<>();
 
     @ManyToOne

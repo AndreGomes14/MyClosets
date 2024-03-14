@@ -27,8 +27,7 @@ public class UserDTO {
 
     @NotBlank(message = "mobile phone is required")
     private String mobilePhone;
-    private Boolean isDeleted;
-
+    private Boolean deleted;
 
     private Closet closet;
 }

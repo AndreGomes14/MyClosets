@@ -17,6 +17,7 @@ import java.util.UUID;
 @Data
 @Builder
 @Slf4j
+@Table(name = "users") // Specify a custom table name
 public class User {
 
     @Id
@@ -32,7 +33,7 @@ public class User {
     @NotBlank(message = "mobile phone is required")
     private String mobilePhone;
 
-    private Boolean isDeleted;
+    private Boolean deleted;
     @OneToMany
-    private Closet closet;
+    private List<Closet> closets;
 }

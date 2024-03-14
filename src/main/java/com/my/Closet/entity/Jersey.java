@@ -36,9 +36,8 @@ public class Jersey {
     private String acquisitionDate;
     private String buyPrice;
     private String sellPrice;
-    private Boolean isDeleted;
-    private List<Image> photos;
+    private Boolean deleted;
 
-    @OneToMany
-    private List<Closet> closets;
+    @ManyToOne
+    private Closet closet;
 }
