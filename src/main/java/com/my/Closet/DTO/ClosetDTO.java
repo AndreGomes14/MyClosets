@@ -32,4 +32,6 @@ public class ClosetDTO {
 
     private List<JerseyDTO> jerseys;
 
+    public ClosetDTO(UUID closetId, String testCloset, String testType) {
+    }
 }

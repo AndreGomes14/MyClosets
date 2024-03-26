@@ -33,4 +33,7 @@ public class JerseyDTO {
     private String deleted;
 
     private Closet closet;
+
+    public JerseyDTO(UUID jerseyId, String testJersey, String testClub) {
+    }
 }

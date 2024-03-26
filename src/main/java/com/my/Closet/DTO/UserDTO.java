@@ -30,4 +30,7 @@ public class UserDTO {
     private Boolean deleted;
 
     private Closet closet;
+
+    public UserDTO(UUID uuid, String testuser, String mail, String number) {
+    }
 }

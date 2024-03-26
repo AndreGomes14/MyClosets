@@ -40,4 +40,10 @@ public class Jersey {
 
     @ManyToOne
     private Closet closet;
+
+    @OneToMany
+    private List<Picture> picture;
+
+    public Jersey(UUID uuid, String s, String s1) {
+    }
 }

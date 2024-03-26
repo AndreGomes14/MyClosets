@@ -25,6 +25,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final ClosetRepository closetRepository;
 
+
     @Autowired
     public UserService(UserRepository userRepository, ClosetRepository closetRepository) {
         this.userRepository = userRepository;
