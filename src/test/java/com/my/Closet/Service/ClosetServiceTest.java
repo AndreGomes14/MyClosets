@@ -1,14 +1,12 @@
 package com.my.Closet.Service;
 
 import com.my.Closet.DTO.ClosetDTO;
-import com.my.Closet.DTO.ClosetJerseyDTO;
 import com.my.Closet.DTO.JerseyDTO;
 import com.my.Closet.DTO.UserDTO;
-import com.my.Closet.entity.Closet;
-import com.my.Closet.entity.Jersey;
-import com.my.Closet.entity.User;
+import com.my.Closet.model.Closet;
+import com.my.Closet.model.Jersey;
+import com.my.Closet.model.User;
 import com.my.Closet.exception.ClosetNotFoundException;
-import com.my.Closet.exception.JerseyNotFoundException;
 import com.my.Closet.repository.ClosetRepository;
 import com.my.Closet.repository.JerseyRepository;
 import com.my.Closet.service.ClosetService;

@@ -1,6 +1,6 @@
 package com.my.Closet.repository;
 
-import com.my.Closet.entity.Closet;
+import com.my.Closet.model.Closet;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

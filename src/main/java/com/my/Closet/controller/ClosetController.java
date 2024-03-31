@@ -3,7 +3,6 @@ package com.my.Closet.controller;
 import com.my.Closet.DTO.ClosetDTO;
 import com.my.Closet.DTO.ClosetJerseyDTO;
 import com.my.Closet.DTO.JerseyDTO;
-import com.my.Closet.entity.Closet;
 import com.my.Closet.service.ClosetService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/closet")

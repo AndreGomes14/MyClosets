@@ -5,7 +5,7 @@ import static org.mockito.Mockito.*;
 import com.my.Closet.DTO.ClosetDTO;
 import com.my.Closet.DTO.UserDTO;
 import com.my.Closet.controller.UserController;
-import com.my.Closet.entity.User;
+import com.my.Closet.model.User;
 import com.my.Closet.exception.UserNotFoundException;
 import com.my.Closet.exception.UserServiceException;
 import com.my.Closet.service.UserService;

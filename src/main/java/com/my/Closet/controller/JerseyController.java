@@ -1,8 +1,7 @@
 package com.my.Closet.controller;
 
 import com.my.Closet.DTO.JerseyDTO;
-import com.my.Closet.entity.Jersey;
-import com.my.Closet.entity.User;
+import com.my.Closet.model.Jersey;
 import com.my.Closet.exception.JerseyNotFoundException;
 import com.my.Closet.service.JerseyService;
 import lombok.extern.slf4j.Slf4j;
@@ -11,9 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/jersey")

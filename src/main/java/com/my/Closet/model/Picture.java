@@ -1,4 +1,4 @@
-package com.my.Closet.entity;
+package com.my.Closet.model;
 
 import jakarta.persistence.*;
 import lombok.*;

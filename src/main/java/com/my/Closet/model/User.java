@@ -1,4 +1,4 @@
-package com.my.Closet.entity;
+package com.my.Closet.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -24,11 +24,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @NotBlank(message = "username is required")
+    @NotBlank(message = "fullname is required")
+    private String fullName;
+
     private String username;
 
     @NotBlank(message = "email is required")
-    private  String email;
+    private String email;
 
     @NotBlank(message = "mobile phone is required")
     private String mobilePhone;
@@ -36,4 +38,5 @@ public class User {
     private Boolean deleted;
     @OneToMany
     private List<Closet> closets;
+
 }

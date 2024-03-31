@@ -1,7 +1,7 @@
 package com.my.Closet.Controller;
 
 import com.my.Closet.controller.PictureController;
-import com.my.Closet.entity.Picture;
+import com.my.Closet.model.Picture;
 import com.my.Closet.service.PictureService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

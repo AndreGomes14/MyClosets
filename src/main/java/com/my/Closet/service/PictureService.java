@@ -1,8 +1,7 @@
 package com.my.Closet.service;
 
 
-import com.my.Closet.entity.Picture;
-import com.my.Closet.repository.JerseyRepository;
+import com.my.Closet.model.Picture;
 import com.my.Closet.repository.PictureRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

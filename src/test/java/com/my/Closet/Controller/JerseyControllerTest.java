@@ -4,9 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 import com.my.Closet.DTO.JerseyDTO;
-import com.my.Closet.controller.ClosetController;
 import com.my.Closet.controller.JerseyController;
-import com.my.Closet.entity.Jersey;
+import com.my.Closet.model.Jersey;
 import com.my.Closet.exception.JerseyNotFoundException;
 import com.my.Closet.service.JerseyService;
 import org.junit.jupiter.api.Test;

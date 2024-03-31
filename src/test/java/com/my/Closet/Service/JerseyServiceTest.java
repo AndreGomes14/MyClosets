@@ -1,7 +1,7 @@
 package com.my.Closet.Service;
 
 import com.my.Closet.DTO.JerseyDTO;
-import com.my.Closet.entity.Jersey;
+import com.my.Closet.model.Jersey;
 import com.my.Closet.exception.JerseyNotFoundException;
 import com.my.Closet.repository.JerseyRepository;
 import com.my.Closet.service.JerseyService;

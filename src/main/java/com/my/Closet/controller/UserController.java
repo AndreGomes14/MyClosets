@@ -1,10 +1,12 @@
 package com.my.Closet.controller;
 
+import org.springframework.ui.Model;
 import com.my.Closet.DTO.ClosetDTO;
 import com.my.Closet.DTO.UserDTO;
-import com.my.Closet.entity.User;
+import com.my.Closet.model.User;
 import com.my.Closet.exception.UserNotFoundException;
 import com.my.Closet.exception.UserServiceException;
+import com.my.Closet.service.StatisticsService;
 import com.my.Closet.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/user")
@@ -22,6 +22,9 @@ import java.util.UUID;
 public class UserController {
 
     private final UserService userService;
+
+    @Autowired
+    private StatisticsService statisticsService;
 
     public UserController(UserService userService) {this.userService = userService;}
 
@@ -101,6 +104,22 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+    @GetMapping("/userStatistics")
+    public String getUserStatistics(Model model) {
+        double averageBuyPrice = statisticsService.averageBuyPrice();
+        int totalJerseysCount = statisticsService.totalJerseysCount();
+        String mostCommonClub = statisticsService.mostCommonClub();
+        String mostCommonBrand = statisticsService.mostCommonBrand();
+        String mostCommonColor = statisticsService.mostCommonColor();
+        String mostCommonDecade = statisticsService.mostCommonDecade();
 
+        model.addAttribute("averageBuyPrice", averageBuyPrice);
+        model.addAttribute("totalJerseysCount", totalJerseysCount);
+        model.addAttribute("mostCommonClub", mostCommonClub);
+        model.addAttribute("mostCommonBrand", mostCommonBrand);
+        model.addAttribute("mostCommonColor", mostCommonColor);
+        model.addAttribute("mostCommonDecade", mostCommonDecade);
 
+        return "statistics";
+    }
 }

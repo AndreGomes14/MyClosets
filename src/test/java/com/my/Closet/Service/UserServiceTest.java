@@ -1,9 +1,8 @@
 package com.my.Closet.Service;
 
 import com.my.Closet.DTO.UserDTO;
-import com.my.Closet.entity.Closet;
-import com.my.Closet.entity.User;
-import com.my.Closet.exception.ClosetNotFoundException;
+import com.my.Closet.model.Closet;
+import com.my.Closet.model.User;
 import com.my.Closet.exception.UserNotFoundException;
 import com.my.Closet.exception.UserServiceException;
 import com.my.Closet.repository.ClosetRepository;
