@@ -1,6 +1,7 @@
 package com.my.Closet.DTO;
 
 import com.my.Closet.model.Closet;
+import com.my.Closet.model.WishCloset;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,6 +20,7 @@ public class UserDTO {
 
     private UUID id;
 
+    @NotBlank(message = "username is required")
     private String username;
 
     @NotBlank(message = "email is required")
@@ -28,7 +30,5 @@ public class UserDTO {
     private Boolean deleted;
 
     private Closet closet;
-
-    public UserDTO(UUID uuid, String testuser, String mail, String number) {
-    }
+    private WishCloset wishCloset;
 }

@@ -1,7 +1,6 @@
-package com.my.Closet.DTO;
+package com.my.Closet.model;
 
-import com.my.Closet.model.Closet;
-import com.my.Closet.model.Picture;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,12 +10,16 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 import java.util.UUID;
 
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Builder
 @Slf4j
-@NoArgsConstructor
-@AllArgsConstructor
-public class JerseyDTO {
+public class WishJersey {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     private String clubName;
@@ -27,13 +30,11 @@ public class JerseyDTO {
     private String brand;
     private String color;
     private String size;
-    private String condition;
-    private String category;
-    private String acquisitionDate;
-    private String buyPrice;
-    private String deleted;
+    private Boolean deleted;
 
-    private Closet closet;
+    @ManyToOne
+    private WishCloset wishCloset;
+
+    @OneToMany(mappedBy = "WishJersey", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Picture> pictures;
-
 }

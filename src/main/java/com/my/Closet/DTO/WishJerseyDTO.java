@@ -1,7 +1,8 @@
 package com.my.Closet.DTO;
 
-import com.my.Closet.model.Closet;
 import com.my.Closet.model.Picture;
+import com.my.Closet.model.WishCloset;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,12 +12,14 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 import java.util.UUID;
 
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Builder
 @Slf4j
-@NoArgsConstructor
-@AllArgsConstructor
-public class JerseyDTO {
+public class WishJerseyDTO {
+
     private UUID id;
 
     private String clubName;
@@ -27,13 +30,9 @@ public class JerseyDTO {
     private String brand;
     private String color;
     private String size;
-    private String condition;
-    private String category;
-    private String acquisitionDate;
-    private String buyPrice;
-    private String deleted;
+    private Boolean deleted;
 
-    private Closet closet;
+    private WishCloset wishCloset;
+
     private List<Picture> pictures;
-
 }

@@ -1,19 +1,18 @@
 package com.my.Closet.service;
 
 import java.util.Map;
+import java.util.UUID;
 
 public interface StatisticsService {
-    Map<String, Map<String, Integer>> calculateStatistics();
+    String mostCommonClub(UUID userId);
 
-    String mostCommonClub();
+    String mostCommonBrand(UUID userId);
 
-    String mostCommonBrand();
+    String mostCommonColor(UUID userId);
 
-    String mostCommonColor();
+    String mostCommonDecade(UUID userId);
 
-    String mostCommonDecade();
+    double averageBuyPrice(UUID userId);
 
-    double averageBuyPrice();
-
-    int totalJerseysCount();
+    int totalJerseysCount(UUID userId);
 }

@@ -24,17 +24,14 @@ public class Closet {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @NotBlank(message = "Name is required")
-    private String name;
-
-    @NotBlank(message = "ClosetType is required")
-    private String closetType;
+    final String name = "My Closet";
 
     private Boolean deleted;
 
-    @OneToMany
+    @OneToMany(mappedBy = "closet", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Jersey> jerseys = new ArrayList<>();
 
-    @ManyToOne
+    @OneToOne
+    @JoinColumn(name = "user_id")
     private User user;
 }

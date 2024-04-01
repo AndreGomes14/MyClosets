@@ -2,6 +2,7 @@ package com.my.Closet.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.UUID;
 
@@ -10,12 +11,11 @@ import java.util.UUID;
 @AllArgsConstructor
 @Data
 @Builder
-@Getter
-@Setter
+@Slf4j
 public class Picture {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @Lob
@@ -26,4 +26,6 @@ public class Picture {
     @ManyToOne
     private Jersey jersey;
 
+    @ManyToOne
+    private WishJersey wishJersey;
 }

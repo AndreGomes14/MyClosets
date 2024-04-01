@@ -18,25 +18,19 @@ import java.util.UUID;
 @Data
 @Builder
 @Slf4j
-public class User {
+public class WishCloset {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @NotBlank(message = "Username is required")
-    private String username;
-
-    @NotBlank(message = "Email is required")
-    private String email;
-
-    private String mobilePhone;
+    final String name = "Wish Closet";
 
     private Boolean deleted;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private Closet closet;
+    @OneToMany(mappedBy = "wishCloset", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<WishJersey> wishJerseys = new ArrayList<>();
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private WishCloset wishCloset;
+    @OneToOne(mappedBy = "wishClosetOwner", cascade = CascadeType.ALL)
+    private User user;
 }

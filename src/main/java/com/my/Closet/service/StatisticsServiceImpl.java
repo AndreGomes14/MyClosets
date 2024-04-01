@@ -5,12 +5,12 @@ import com.my.Closet.model.Jersey;
 import com.my.Closet.model.User;
 import com.my.Closet.repository.ClosetRepository;
 import com.my.Closet.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class StatisticsServiceImpl implements StatisticsService {
@@ -22,130 +22,127 @@ public class StatisticsServiceImpl implements StatisticsService {
     private ClosetRepository closetRepository;
 
     @Override
-    public Map<String, Map<String, Integer>> calculateStatistics() {
-        Map<String, Map<String, Integer>> statistics = new HashMap<>();
-        try {
-            List<User> users = userRepository.findAll();
-            for (User user : users) {
-                Map<String, Integer> userStatistics = new HashMap<>();
-                for (Closet closet : user.getClosets()) {
-                    int totalJerseys = closet.getJerseys().size();
-                    userStatistics.put(closet.getName(), totalJerseys);
-                }
-                statistics.put(user.getUsername(), userStatistics);
-            }
-        } catch (Exception e) {
-            // Log or handle the exception appropriately
-        }
-        return statistics;
-    }
+    public String mostCommonClub(UUID userId) {
+        Logger logger = LoggerFactory.getLogger(StatisticsServiceImpl.class);
 
-    @Override
-    public String mostCommonClub() {
         try {
             Map<String, Integer> clubCounts = new HashMap<>();
-            List<User> users = userRepository.findAll();
+            Optional<User> optionalUser = userRepository.findById(userId);
 
-            // Iterate through all users and their closets
-            for (User user : users) {
+            if (optionalUser.isPresent()) {
+                User user = optionalUser.get();
+                // Iterate through the closets of the specific user
                 for (Closet closet : user.getClosets()) {
                     for (Jersey jersey : closet.getJerseys()) {
                         // Increment count for each club
                         clubCounts.put(jersey.getClubName(), clubCounts.getOrDefault(jersey.getClubName(), 0) + 1);
                     }
                 }
-            }
 
-            // Find the club with the highest count
-            String mostCommonClub = null;
-            int maxCount = 0;
-            for (Map.Entry<String, Integer> entry : clubCounts.entrySet()) {
-                if (entry.getValue() > maxCount) {
-                    mostCommonClub = entry.getKey();
-                    maxCount = entry.getValue();
+                // Find the club with the highest count
+                String mostCommonClub = null;
+                int maxCount = 0;
+                for (Map.Entry<String, Integer> entry : clubCounts.entrySet()) {
+                    if (entry.getValue() > maxCount) {
+                        mostCommonClub = entry.getKey();
+                        maxCount = entry.getValue();
+                    }
                 }
+                return mostCommonClub;
+            } else {
+                logger.warn("User with ID {} not found.", userId);
             }
-            return mostCommonClub;
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error occurred while calculating most common club for user with ID {}: {}", userId, e.getMessage(), e);
         }
         return null;
     }
 
-
     @Override
-    public String mostCommonBrand() {
+    public String mostCommonBrand(UUID userId) {
+        Logger logger = LoggerFactory.getLogger(StatisticsServiceImpl.class);
+
         try {
             Map<String, Integer> brandCounts = new HashMap<>();
-            List<User> users = userRepository.findAll();
+            Optional<User> optionalUser = userRepository.findById(userId);
 
-            // Iterate through all users and their closets
-            for (User user : users) {
+            if (optionalUser.isPresent()) {
+                User user = optionalUser.get();
+                // Iterate through the closets of the specific user
                 for (Closet closet : user.getClosets()) {
                     for (Jersey jersey : closet.getJerseys()) {
                         // Increment count for each brand
                         brandCounts.put(jersey.getBrand(), brandCounts.getOrDefault(jersey.getBrand(), 0) + 1);
                     }
                 }
-            }
 
-            // Find the brand with the highest count
-            String mostCommonBrand = null;
-            int maxCount = 0;
-            for (Map.Entry<String, Integer> entry : brandCounts.entrySet()) {
-                if (entry.getValue() > maxCount) {
-                    mostCommonBrand = entry.getKey();
-                    maxCount = entry.getValue();
+                // Find the brand with the highest count
+                String mostCommonBrand = null;
+                int maxCount = 0;
+                for (Map.Entry<String, Integer> entry : brandCounts.entrySet()) {
+                    if (entry.getValue() > maxCount) {
+                        mostCommonBrand = entry.getKey();
+                        maxCount = entry.getValue();
+                    }
                 }
+                return mostCommonBrand;
+            } else {
+                logger.warn("User with ID {} not found.", userId);
             }
-            return mostCommonBrand;
         } catch (Exception e) {
-            // Log or handle the exception appropriately
+            logger.error("Error occurred while calculating most common brand for user with ID {}: {}", userId, e.getMessage(), e);
         }
         return null;
     }
 
     @Override
-    public String mostCommonColor() {
+    public String mostCommonColor(UUID userId) {
+        Logger logger = LoggerFactory.getLogger(StatisticsServiceImpl.class); // Replace YourClassName with the name of your class
+
         try {
             Map<String, Integer> colorCounts = new HashMap<>();
-            List<User> users = userRepository.findAll();
+            Optional<User> optionalUser = userRepository.findById(userId);
 
-            // Iterate through all users and their closets
-            for (User user : users) {
+            if (optionalUser.isPresent()) {
+                User user = optionalUser.get();
+                // Iterate through the closets of the specific user
                 for (Closet closet : user.getClosets()) {
                     for (Jersey jersey : closet.getJerseys()) {
                         // Increment count for each color
                         colorCounts.put(jersey.getColor(), colorCounts.getOrDefault(jersey.getColor(), 0) + 1);
                     }
                 }
-            }
 
-            // Find the color with the highest count
-            String mostCommonColor = null;
-            int maxCount = 0;
-            for (Map.Entry<String, Integer> entry : colorCounts.entrySet()) {
-                if (entry.getValue() > maxCount) {
-                    mostCommonColor = entry.getKey();
-                    maxCount = entry.getValue();
+                // Find the color with the highest count
+                String mostCommonColor = null;
+                int maxCount = 0;
+                for (Map.Entry<String, Integer> entry : colorCounts.entrySet()) {
+                    if (entry.getValue() > maxCount) {
+                        mostCommonColor = entry.getKey();
+                        maxCount = entry.getValue();
+                    }
                 }
+                return mostCommonColor;
+            } else {
+                logger.warn("User with ID {} not found.", userId);
             }
-            return mostCommonColor;
         } catch (Exception e) {
-            // Log or handle the exception appropriately
-            e.printStackTrace();
+            logger.error("Error occurred while calculating most common color for user with ID {}: {}", userId, e.getMessage(), e);
         }
         return null;
     }
 
     @Override
-    public String mostCommonDecade() {
+    public String mostCommonDecade(UUID userId) {
+        Logger logger = LoggerFactory.getLogger(StatisticsServiceImpl.class);
+
         try {
             Map<String, Integer> decadeCounts = new HashMap<>();
-            List<User> users = userRepository.findAll();
+            Optional<User> optionalUser = userRepository.findById(userId);
 
-            // Iterate through all users and their closets
-            for (User user : users) {
+            if (optionalUser.isPresent()) {
+                User user = optionalUser.get();
+                // Iterate through the closets of the specific user
                 for (Closet closet : user.getClosets()) {
                     for (Jersey jersey : closet.getJerseys()) {
                         // Extract the decade from jersey season
@@ -156,21 +153,22 @@ public class StatisticsServiceImpl implements StatisticsService {
                         decadeCounts.put(decade, decadeCounts.getOrDefault(decade, 0) + 1);
                     }
                 }
-            }
 
-            // Find the decade with the highest count
-            String mostCommonDecade = null;
-            int maxCount = 0;
-            for (Map.Entry<String, Integer> entry : decadeCounts.entrySet()) {
-                if (entry.getValue() > maxCount) {
-                    mostCommonDecade = entry.getKey();
-                    maxCount = entry.getValue();
+                // Find the decade with the highest count
+                String mostCommonDecade = null;
+                int maxCount = 0;
+                for (Map.Entry<String, Integer> entry : decadeCounts.entrySet()) {
+                    if (entry.getValue() > maxCount) {
+                        mostCommonDecade = entry.getKey();
+                        maxCount = entry.getValue();
+                    }
                 }
+                return mostCommonDecade;
+            } else {
+                logger.warn("User with ID {} not found.", userId);
             }
-            return mostCommonDecade;
         } catch (Exception e) {
-            // Log or handle the exception appropriately
-            e.printStackTrace();
+            logger.error("Error occurred while calculating most common decade for user with ID {}: {}", userId, e.getMessage(), e);
         }
         return null;
     }
@@ -184,16 +182,18 @@ public class StatisticsServiceImpl implements StatisticsService {
         return decadeStartYear + "/" + (decadeStartYear + 9);
     }
 
-    @Override
-    public double averageBuyPrice() {
+    public double averageBuyPrice(UUID userId) {
+        Logger logger = LoggerFactory.getLogger(StatisticsServiceImpl.class);
+
         try {
             double totalBuyPrice = 0.0;
             int jerseyCount = 0;
 
-            List<User> users = userRepository.findAll();
+            Optional<User> optionalUser = userRepository.findById(userId);
 
-            // Iterate through all users and their closets
-            for (User user : users) {
+            if (optionalUser.isPresent()) {
+                User user = optionalUser.get();
+                // Iterate through the closets of the specific user
                 for (Closet closet : user.getClosets()) {
                     for (Jersey jersey : closet.getJerseys()) {
                         // Sum up the buy prices of all jerseys
@@ -201,39 +201,45 @@ public class StatisticsServiceImpl implements StatisticsService {
                         jerseyCount++;
                     }
                 }
-            }
 
-            // Calculate the average buy price
-            if (jerseyCount > 0) {
-                return totalBuyPrice / jerseyCount;
+                // Calculate the average buy price
+                if (jerseyCount > 0) {
+                    return totalBuyPrice / jerseyCount;
+                } else {
+                    return 0.0; // Handle the case when there are no jerseys
+                }
             } else {
-                return 0.0; // Handle the case when there are no jerseys
+                logger.warn("User with ID {} not found.", userId);
+                return 0.0; // Handle the case when user is not found
             }
         } catch (Exception e) {
-            // Log or handle the exception appropriately
-            e.printStackTrace();
+            logger.error("Error occurred while calculating average buy price for user with ID {}: {}", userId, e.getMessage(), e);
+            return 0.0; // Return 0.0 in case of any exception
         }
-        return 0.0;
     }
 
-    @Override
-    public int totalJerseysCount() {
+    public int totalJerseysCount(UUID userId) {
+        Logger logger = LoggerFactory.getLogger(StatisticsServiceImpl.class);
+
         try {
             int totalJerseys = 0;
-            List<User> users = userRepository.findAll();
+            Optional<User> optionalUser = userRepository.findById(userId);
 
-            // Iterate through all users and their closets
-            for (User user : users) {
+            if (optionalUser.isPresent()) {
+                User user = optionalUser.get();
+                // Iterate through the closets of the specific user
                 for (Closet closet : user.getClosets()) {
                     // Sum up the counts of jerseys in each closet
                     totalJerseys += closet.getJerseys().size();
                 }
+                return totalJerseys;
+            } else {
+                logger.warn("User with ID {} not found.", userId);
+                return 0; // Handle the case when user is not found
             }
-            return totalJerseys;
         } catch (Exception e) {
-            // Log or handle the exception appropriately
-            e.printStackTrace();
+            logger.error("Error occurred while calculating total jerseys count for user with ID {}: {}", userId, e.getMessage(), e);
+            return 0; // Return 0 in case of any exception
         }
-        return 0;
     }
 }

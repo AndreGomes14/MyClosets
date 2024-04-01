@@ -37,8 +37,6 @@ public class ClosetService {
         try {
             Closet closet = Closet.builder()
                     .id(UUID.randomUUID()) // Gerar um novo UUID para o closet
-                    .name(createClosetDTO.getName())
-                    .closetType(createClosetDTO.getClosetType())
                     .user(User.builder()
                             .id(createClosetDTO.getUser().getId())
                             .username(createClosetDTO.getUser().getUsername())
@@ -51,8 +49,6 @@ public class ClosetService {
             Closet savedCloset = closetRepository.save(closet);
             return ClosetDTO.builder()
                     .id(savedCloset.getId())
-                    .name(savedCloset.getName())
-                    .closetType(savedCloset.getClosetType())
                     .user(UserDTO.builder()
                             .id(savedCloset.getUser().getId())
                             .username(savedCloset.getUser().getUsername())
@@ -88,8 +84,6 @@ public class ClosetService {
             for (Closet closet : closets) {
                 ClosetDTO closetDTO = new ClosetDTO();
                 closetDTO.setId(closet.getId());
-                closetDTO.setName(closet.getName());
-                closetDTO.setClosetType(closet.getClosetType());
                 // Adicione outros atributos conforme necessário
                 closetDTOs.add(closetDTO);
             }
@@ -167,8 +161,6 @@ public class ClosetService {
     private ClosetDTO convertToDTO(Closet closet) {
         return ClosetDTO.builder()
                 .id(closet.getId())
-                .name(closet.getName())
-                .closetType(closet.getClosetType())
                 .user(UserDTO.builder()
                         .id(closet.getUser().getId())
                         .username(closet.getUser().getUsername())

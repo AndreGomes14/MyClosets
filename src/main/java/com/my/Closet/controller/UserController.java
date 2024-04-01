@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/user")
@@ -104,14 +105,14 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-    @GetMapping("/userStatistics")
-    public String getUserStatistics(Model model) {
-        double averageBuyPrice = statisticsService.averageBuyPrice();
-        int totalJerseysCount = statisticsService.totalJerseysCount();
-        String mostCommonClub = statisticsService.mostCommonClub();
-        String mostCommonBrand = statisticsService.mostCommonBrand();
-        String mostCommonColor = statisticsService.mostCommonColor();
-        String mostCommonDecade = statisticsService.mostCommonDecade();
+    @GetMapping("/getUserStatisticsByID")
+    public String getUserStatistics(@RequestBody UUID userId, Model model) {
+        double averageBuyPrice = statisticsService.averageBuyPrice(userId);
+        int totalJerseysCount = statisticsService.totalJerseysCount(userId);
+        String mostCommonClub = statisticsService.mostCommonClub(userId);
+        String mostCommonBrand = statisticsService.mostCommonBrand(userId);
+        String mostCommonColor = statisticsService.mostCommonColor(userId);
+        String mostCommonDecade = statisticsService.mostCommonDecade(userId);
 
         model.addAttribute("averageBuyPrice", averageBuyPrice);
         model.addAttribute("totalJerseysCount", totalJerseysCount);

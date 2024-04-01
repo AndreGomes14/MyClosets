@@ -30,6 +30,7 @@ public class Jersey {
     private String brand;
     private String color;
     private String size;
+    @ElementCollection
     private List<String> patches;
     private String condition;
     private String category;
@@ -41,9 +42,7 @@ public class Jersey {
     @ManyToOne
     private Closet closet;
 
-    @OneToMany
-    private List<Picture> picture;
+    @OneToMany(mappedBy = "jersey", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Picture> pictures;
 
-    public Jersey(UUID uuid, String s, String s1) {
-    }
 }
