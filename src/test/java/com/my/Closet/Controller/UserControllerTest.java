@@ -8,6 +8,7 @@ import com.my.Closet.controller.UserController;
 import com.my.Closet.model.User;
 import com.my.Closet.exception.UserNotFoundException;
 import com.my.Closet.exception.UserServiceException;
+import com.my.Closet.service.StatisticsService;
 import com.my.Closet.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,9 +17,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @ExtendWith(MockitoExtension.class)
 class UserControllerTest {
@@ -29,6 +32,11 @@ class UserControllerTest {
     @InjectMocks
     private UserController userController;
 
+    @Mock
+    private StatisticsService statisticsService;
+
+    @Mock
+    private Model model;
     @Test
     void testCreateUser_Success() {
         // Given

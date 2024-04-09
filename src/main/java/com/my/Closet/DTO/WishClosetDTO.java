@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 @Data
 @Builder
@@ -23,4 +24,10 @@ public class WishClosetDTO {
     private Boolean deleted;
     private List<Jersey> jerseys = new ArrayList<>();
     private User user;
+
+    public boolean isEmpty() {
+        Stream.of(/* list all fields */)
+                .allMatch(field -> field == null);
+        return true;
+    }
 }

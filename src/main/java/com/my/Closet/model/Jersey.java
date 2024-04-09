@@ -45,4 +45,6 @@ public class Jersey {
     @OneToMany(mappedBy = "jersey", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Picture> pictures;
 
+    public Jersey(UUID uuid, String s, String s1) {
+    }
 }

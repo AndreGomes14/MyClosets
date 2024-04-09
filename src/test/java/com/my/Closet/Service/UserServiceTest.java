@@ -238,7 +238,6 @@ public class UserServiceTest {
 
         Closet closet = Closet.builder()
                 .id(closetId)
-                .name("Test Closet")
                 .user(null)
                 .build();
         Optional<Closet> optionalCloset = Optional.of(closet);

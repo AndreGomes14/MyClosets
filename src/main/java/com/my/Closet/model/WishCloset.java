@@ -31,6 +31,6 @@ public class WishCloset {
     @OneToMany(mappedBy = "wishCloset", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<WishJersey> wishJerseys = new ArrayList<>();
 
-    @OneToOne(mappedBy = "wishClosetOwner", cascade = CascadeType.ALL)
+    @OneToOne
     private User user;
 }

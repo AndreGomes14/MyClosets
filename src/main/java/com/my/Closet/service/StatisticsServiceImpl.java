@@ -31,24 +31,28 @@ public class StatisticsServiceImpl implements StatisticsService {
 
             if (optionalUser.isPresent()) {
                 User user = optionalUser.get();
-                // Iterate through the closets of the specific user
-                for (Closet closet : user.getClosets()) {
+                // Get the user's Closet
+                Closet closet = user.getCloset();
+                if (closet != null) {
+                    // Iterate through the jerseys in the Closet
                     for (Jersey jersey : closet.getJerseys()) {
                         // Increment count for each club
                         clubCounts.put(jersey.getClubName(), clubCounts.getOrDefault(jersey.getClubName(), 0) + 1);
                     }
-                }
 
-                // Find the club with the highest count
-                String mostCommonClub = null;
-                int maxCount = 0;
-                for (Map.Entry<String, Integer> entry : clubCounts.entrySet()) {
-                    if (entry.getValue() > maxCount) {
-                        mostCommonClub = entry.getKey();
-                        maxCount = entry.getValue();
+                    // Find the club with the highest count
+                    String mostCommonClub = null;
+                    int maxCount = 0;
+                    for (Map.Entry<String, Integer> entry : clubCounts.entrySet()) {
+                        if (entry.getValue() > maxCount) {
+                            mostCommonClub = entry.getKey();
+                            maxCount = entry.getValue();
+                        }
                     }
+                    return mostCommonClub;
+                } else {
+                    logger.warn("Closet not found for user with ID {}.", userId);
                 }
-                return mostCommonClub;
             } else {
                 logger.warn("User with ID {} not found.", userId);
             }
@@ -68,24 +72,28 @@ public class StatisticsServiceImpl implements StatisticsService {
 
             if (optionalUser.isPresent()) {
                 User user = optionalUser.get();
-                // Iterate through the closets of the specific user
-                for (Closet closet : user.getClosets()) {
+                // Get the user's Closet
+                Closet closet = user.getCloset();
+                if (closet != null) {
+                    // Iterate through the jerseys in the Closet
                     for (Jersey jersey : closet.getJerseys()) {
                         // Increment count for each brand
                         brandCounts.put(jersey.getBrand(), brandCounts.getOrDefault(jersey.getBrand(), 0) + 1);
                     }
-                }
 
-                // Find the brand with the highest count
-                String mostCommonBrand = null;
-                int maxCount = 0;
-                for (Map.Entry<String, Integer> entry : brandCounts.entrySet()) {
-                    if (entry.getValue() > maxCount) {
-                        mostCommonBrand = entry.getKey();
-                        maxCount = entry.getValue();
+                    // Find the brand with the highest count
+                    String mostCommonBrand = null;
+                    int maxCount = 0;
+                    for (Map.Entry<String, Integer> entry : brandCounts.entrySet()) {
+                        if (entry.getValue() > maxCount) {
+                            mostCommonBrand = entry.getKey();
+                            maxCount = entry.getValue();
+                        }
                     }
+                    return mostCommonBrand;
+                } else {
+                    logger.warn("Closet not found for user with ID {}.", userId);
                 }
-                return mostCommonBrand;
             } else {
                 logger.warn("User with ID {} not found.", userId);
             }
@@ -97,7 +105,7 @@ public class StatisticsServiceImpl implements StatisticsService {
 
     @Override
     public String mostCommonColor(UUID userId) {
-        Logger logger = LoggerFactory.getLogger(StatisticsServiceImpl.class); // Replace YourClassName with the name of your class
+        Logger logger = LoggerFactory.getLogger(StatisticsServiceImpl.class);
 
         try {
             Map<String, Integer> colorCounts = new HashMap<>();
@@ -105,24 +113,28 @@ public class StatisticsServiceImpl implements StatisticsService {
 
             if (optionalUser.isPresent()) {
                 User user = optionalUser.get();
-                // Iterate through the closets of the specific user
-                for (Closet closet : user.getClosets()) {
+                // Get the user's Closet
+                Closet closet = user.getCloset();
+                if (closet != null) {
+                    // Iterate through the jerseys in the Closet
                     for (Jersey jersey : closet.getJerseys()) {
                         // Increment count for each color
                         colorCounts.put(jersey.getColor(), colorCounts.getOrDefault(jersey.getColor(), 0) + 1);
                     }
-                }
 
-                // Find the color with the highest count
-                String mostCommonColor = null;
-                int maxCount = 0;
-                for (Map.Entry<String, Integer> entry : colorCounts.entrySet()) {
-                    if (entry.getValue() > maxCount) {
-                        mostCommonColor = entry.getKey();
-                        maxCount = entry.getValue();
+                    // Find the color with the highest count
+                    String mostCommonColor = null;
+                    int maxCount = 0;
+                    for (Map.Entry<String, Integer> entry : colorCounts.entrySet()) {
+                        if (entry.getValue() > maxCount) {
+                            mostCommonColor = entry.getKey();
+                            maxCount = entry.getValue();
+                        }
                     }
+                    return mostCommonColor;
+                } else {
+                    logger.warn("Closet not found for user with ID {}.", userId);
                 }
-                return mostCommonColor;
             } else {
                 logger.warn("User with ID {} not found.", userId);
             }
@@ -131,6 +143,7 @@ public class StatisticsServiceImpl implements StatisticsService {
         }
         return null;
     }
+
 
     @Override
     public String mostCommonDecade(UUID userId) {
@@ -142,28 +155,32 @@ public class StatisticsServiceImpl implements StatisticsService {
 
             if (optionalUser.isPresent()) {
                 User user = optionalUser.get();
-                // Iterate through the closets of the specific user
-                for (Closet closet : user.getClosets()) {
+                // Get the user's Closet
+                Closet closet = user.getCloset();
+                if (closet != null) {
+                    // Iterate through the jerseys in the Closet
                     for (Jersey jersey : closet.getJerseys()) {
                         // Extract the decade from jersey season
                         String season = jersey.getSeason();
-                        String decade = getDecade(season);
+                        String decade = getDecade(jersey.getSeason());
 
                         // Increment count for each decade
                         decadeCounts.put(decade, decadeCounts.getOrDefault(decade, 0) + 1);
                     }
-                }
 
-                // Find the decade with the highest count
-                String mostCommonDecade = null;
-                int maxCount = 0;
-                for (Map.Entry<String, Integer> entry : decadeCounts.entrySet()) {
-                    if (entry.getValue() > maxCount) {
-                        mostCommonDecade = entry.getKey();
-                        maxCount = entry.getValue();
+                    // Find the decade with the highest count
+                    String mostCommonDecade = null;
+                    int maxCount = 0;
+                    for (Map.Entry<String, Integer> entry : decadeCounts.entrySet()) {
+                        if (entry.getValue() > maxCount) {
+                            mostCommonDecade = entry.getKey();
+                            maxCount = entry.getValue();
+                        }
                     }
+                    return mostCommonDecade;
+                } else {
+                    logger.warn("Closet not found for user with ID {}.", userId);
                 }
-                return mostCommonDecade;
             } else {
                 logger.warn("User with ID {} not found.", userId);
             }
@@ -193,20 +210,25 @@ public class StatisticsServiceImpl implements StatisticsService {
 
             if (optionalUser.isPresent()) {
                 User user = optionalUser.get();
-                // Iterate through the closets of the specific user
-                for (Closet closet : user.getClosets()) {
+                // Get the user's Closet
+                Closet closet = user.getCloset();
+                if (closet != null) {
+                    // Iterate through the jerseys in the Closet
                     for (Jersey jersey : closet.getJerseys()) {
                         // Sum up the buy prices of all jerseys
                         totalBuyPrice += Double.parseDouble(jersey.getBuyPrice());
                         jerseyCount++;
                     }
-                }
 
-                // Calculate the average buy price
-                if (jerseyCount > 0) {
-                    return totalBuyPrice / jerseyCount;
+                    // Calculate the average buy price
+                    if (jerseyCount > 0) {
+                        return totalBuyPrice / jerseyCount;
+                    } else {
+                        return 0.0; // Handle the case when there are no jerseys
+                    }
                 } else {
-                    return 0.0; // Handle the case when there are no jerseys
+                    logger.warn("Closet not found for user with ID {}.", userId);
+                    return 0.0; // Handle the case when Closet is not found
                 }
             } else {
                 logger.warn("User with ID {} not found.", userId);
@@ -227,10 +249,13 @@ public class StatisticsServiceImpl implements StatisticsService {
 
             if (optionalUser.isPresent()) {
                 User user = optionalUser.get();
-                // Iterate through the closets of the specific user
-                for (Closet closet : user.getClosets()) {
-                    // Sum up the counts of jerseys in each closet
+                // Get the user's Closet
+                Closet closet = user.getCloset();
+                if (closet != null) {
+                    // Sum up the counts of jerseys in the Closet
                     totalJerseys += closet.getJerseys().size();
+                } else {
+                    logger.warn("Closet not found for user with ID {}.", userId);
                 }
                 return totalJerseys;
             } else {

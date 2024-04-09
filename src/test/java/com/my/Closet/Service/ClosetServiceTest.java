@@ -39,15 +39,11 @@ public class ClosetServiceTest {
     void createCloset_Success() {
         // Mocking the input DTO
         ClosetDTO createClosetDTO = new ClosetDTO();
-        createClosetDTO.setName("Test Closet");
-        createClosetDTO.setClosetType("Test Type");
         createClosetDTO.setUser(new UserDTO(UUID.randomUUID(), "testuser", "test@example.com", "123456789"));
 
         // Mocking the saved closet
         Closet savedCloset = Closet.builder()
                 .id(UUID.randomUUID())
-                .name(createClosetDTO.getName())
-                .closetType(createClosetDTO.getClosetType())
                 .user(User.builder()
                         .id(createClosetDTO.getUser().getId())
                         .username(createClosetDTO.getUser().getUsername())
@@ -66,7 +62,6 @@ public class ClosetServiceTest {
 
         // Asserting the result
         assertEquals(createClosetDTO.getName(), result.getName());
-        assertEquals(createClosetDTO.getClosetType(), result.getClosetType());
         assertEquals(createClosetDTO.getUser().getId(), result.getUser().getId());
         assertEquals(createClosetDTO.getUser().getUsername(), result.getUser().getUsername());
         assertEquals(createClosetDTO.getUser().getEmail(), result.getUser().getEmail());
@@ -82,8 +77,8 @@ public class ClosetServiceTest {
 
         // Mocking the list of closets from repository
         List<Closet> closets = new ArrayList<>();
-        closets.add(createMockCloset(UUID.randomUUID(), "Closet 1"));
-        closets.add(createMockCloset(UUID.randomUUID(), "Closet 2"));
+        closets.add(createMockCloset(UUID.randomUUID()));
+        closets.add(createMockCloset(UUID.randomUUID()));
 
         // Mocking the behavior of closetRepository.findByUserIdAndDeletedIsFalse
         when(closetRepository.findByUserIdAndDeletedIsFalse(userId)).thenReturn(closets);
@@ -193,10 +188,9 @@ public class ClosetServiceTest {
         assertThrows(ClosetNotFoundException.class, () -> closetService.getAllJerseysByClosetId(closetId));
     }
 
-    private Closet createMockCloset(UUID id, String name) {
+    private Closet createMockCloset(UUID id) {
         Closet closet = new Closet();
         closet.setId(id);
-        closet.setName(name);
         // Add more fields initialization if needed
         return closet;
     }

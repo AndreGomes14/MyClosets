@@ -35,6 +35,6 @@ public class WishJersey {
     @ManyToOne
     private WishCloset wishCloset;
 
-    @OneToMany(mappedBy = "WishJersey", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "wishJersey", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Picture> pictures;
 }

@@ -41,7 +41,7 @@ public class WishJerseyService {
     }
 
     // Helper method to convert WishJerseyDTO to WishJersey entity
-    private WishJersey convertToWishJerseyEntity(WishJerseyDTO wishJerseyDTO) {
+    public WishJersey convertToWishJerseyEntity(WishJerseyDTO wishJerseyDTO) {
         WishJersey wishJersey = new WishJersey();
         wishJersey.setClubName(wishJerseyDTO.getClubName());
         wishJersey.setPlayerName(wishJerseyDTO.getPlayerName());

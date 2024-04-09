@@ -4,4 +4,7 @@ public class JerseyNotFoundException extends RuntimeException {
     public JerseyNotFoundException(String message) {
         super(message);
     }
+
+    public JerseyNotFoundException() {
+    }
 }

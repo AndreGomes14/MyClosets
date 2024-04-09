@@ -31,4 +31,7 @@ public class UserDTO {
 
     private Closet closet;
     private WishCloset wishCloset;
+
+    public UserDTO(UUID uuid, String testuser, String mail, String mobilePhone) {
+    }
 }

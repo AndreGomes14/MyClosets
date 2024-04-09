@@ -19,8 +19,8 @@ import java.util.List;
 public class WishClosetController {
     private final WishClosetService wishClosetService;
 
-    @Autowired
     public WishClosetController(WishClosetService wishClosetService) {
+
         this.wishClosetService = wishClosetService;
     }
 
