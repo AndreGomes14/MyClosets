@@ -86,6 +86,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>closet</finalName>
 	</build>
 	<repositories>
 		<repository>

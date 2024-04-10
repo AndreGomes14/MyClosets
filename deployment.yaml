@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: closet-deployment
+  labels:
+    app: closet-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: closet-deployment
+  template:
+    metadata:
+      labels:
+        app: closet-deployment
+    spec:
+      containers:
+        - name: closet-deployment
+          image: closet:1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
